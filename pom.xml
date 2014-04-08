@@ -4,16 +4,73 @@
 	<groupId>io.teknek</groupId>
 	<artifactId>graphite-reporter</artifactId>
 	<name>graphite-reporter</name>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<description></description>
+        <packaging>jar</packaging>
+	<parent>
+                <groupId>org.sonatype.oss</groupId>
+                <artifactId>oss-parent</artifactId>
+                <version>7</version>
+        </parent>
+	<licenses>
+                <license>
+                        <name>The Apache Software License, Version 2.0</name>
+                        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+                        <distribution>repo</distribution>
+                </license>
+        </licenses>
+
 	<scm>
+		<url>https://github.com/edwardcapriolo/graphite-reporter</url>
+                <connection>https://github.com/edwardcapriolo/graphite-reporter.git</connection>
+                <developerConnection>scm:git:git@github.com:edwardcapriolo/graphite-reporter.git</developerConnection>
 	</scm>
+	
 	<properties>
 		<yammer-metrics.version>3.0.1</yammer-metrics.version>
 		<slf4j.version>1.6.6</slf4j.version>
 		<mockito.version>1.8.4</mockito.version>
 		<hamcrest.version>1.2.1</hamcrest.version>
 	</properties>
+
+	<build>
+            <pluginManagement>
+                        <plugins>
+				<plugin>
+                                        <artifactId>maven-compiler-plugin</artifactId>
+                                        <configuration>
+                                                <source>1.7</source>
+                                                <target>1.7</target>
+                                        </configuration>
+                                </plugin>
+                                <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-gpg-plugin</artifactId>
+                                        <executions>
+                                                <execution>
+                                                        <id>sign-artifacts</id>
+                                                        <phase>verify</phase>
+                                                        <goals>
+                                                                <goal>sign</goal>
+                                                        </goals>
+                                                </execution>
+                                        </executions>
+                                </plugin>
+				<plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-jar-plugin</artifactId>
+                                        <version>2.2</version>
+                                        <executions>
+                                                <execution>
+                                                        <goals>
+                                                                <goal>test-jar</goal>
+                                                        </goals>
+                                                </execution>
+                                        </executions>
+                                </plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 	<dependencies>
 	<dependency>
     		<groupId>org.aspectj</groupId>
@@ -74,4 +131,50 @@
 	    <scope>test</scope>
 	</dependency>
     </dependencies>
+
+	   <developers>
+                <developer>
+                        <id>ecapriolo</id>
+                        <name>Edward Capriolo</name>
+                        <email>edlinuxguru@gmail.com</email>
+                        <url />
+                        <organization />
+                        <organizationUrl />
+                        <roles>
+                                <role>developer</role>
+                        </roles>
+                        <timezone>-6</timezone>
+                </developer>
+        </developers>
+
+	  <profiles>
+                <profile>
+                        <id>release-sign-artifacts</id>
+                        <activation>
+                                <property>
+                                        <name>performRelease</name>
+                                        <value>true</value>
+                                </property>
+                        </activation>
+                        <build>
+                                <plugins>
+                                        <plugin>
+                                                <groupId>org.apache.maven.plugins</groupId>
+                                                <artifactId>maven-gpg-plugin</artifactId>
+                                                <version>1.1</version>
+                                                <executions>
+                                                        <execution>
+                                                                <id>sign-artifacts</id>
+                                                                <phase>verify</phase>
+                                                                <goals>
+                                                                        <goal>sign</goal>
+                                                                </goals>
+                                                        </execution>
+                                                </executions>
+                                        </plugin>
+                                </plugins>
+                        </build>
+                </profile>
+        </profiles>
+
 </project>
